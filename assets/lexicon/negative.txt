@@ -1,0 +1,365 @@
+negative|0.5
+jelek|1.0
+buruk|1.0
+parah|1.0
+sangat buruk|1.0
+mengerikan|1.0
+menakutkan|1.0
+horor|1.0
+menyeramkan|1.0
+mengganggu|1.0
+menjengkelkan|1.0
+membosankan|1.0
+membuat bosan|1.0
+membuat jengkel|1.0
+membuat kesal|1.0
+kesal|1.0
+marah|1.0
+amarah|1.0
+kemarahan|1.0
+berang|1.0
+berkesal|1.0
+bermarah|1.0
+murka|1.0
+geram|1.0
+sebel|1.0
+resah|1.0
+gelisah|1.0
+cemas|1.0
+khawatir|1.0
+ketakutan|1.0
+takut|1.0
+takutan|1.0
+takuti|1.0
+ngeri|1.0
+merinding|1.0
+menggigil|1.0
+bergidik|1.0
+gumpil|1.0
+cenut cenut|1.0
+sedih|1.0
+mendalam|1.0
+duka|1.0
+dukacita|1.0
+kecewa|1.0
+mengecewakan|1.0
+mengecewa|1.0
+menyedihkan|1.0
+menyedih|1.0
+merana|1.0
+tertekan|1.0
+terbeban|1.0
+tersiksa|1.0
+tersiksa|1.0
+tertindas|1.0
+tertindih|1.0
+menderita|1.0
+menderitanya|1.0
+sengsara|1.0
+susah|1.0
+sulit|1.0
+kesulitan|1.0
+menyulitkan|1.0
+rumit|1.0
+berbelit-belit|1.0
+membingungkan|1.0
+membingung|1.0
+membingunkan|1.0
+memusingkan|1.0
+pusingnya|1.0
+pusing|1.0
+mumet|1.0
+puyeng|1.0
+puring|1.0
+sakit|1.0
+sakitan|1.0
+sakit-sakitan|1.0
+lemah|1.0
+lemas|1.0
+kelelahan|1.0
+capek|1.0
+cape|1.0
+kecapekan|1.0
+lelah|1.0
+lesu|1.0
+lesuh|1.0
+lesunya|1.0
+malas|1.0
+males|1.0
+kemalasan|1.0
+ogah|1.0
+ogahan|1.0
+ogah ogahan|1.0
+tidak semangat|1.0
+pesimis|1.0
+putus asa|1.0
+malu|1.0
+maluin|1.0
+memalukan|1.0
+mempermalukan|1.0
+mengmalui|1.0
+aib|1.0
+aibnya|1.0
+sesal|1.0
+penyesalan|1.0
+menyesal|1.0
+menyesali|1.0
+benci|1.0
+membenci|1.0
+bencian|1.0
+dendam|1.0
+denandaman|1.0
+mendendamkan|1.0
+iri|1.0
+irinya|1.0
+iri hati|1.0
+irihati|1.0
+dengki|1.0
+dengkian|1.0
+mendengki|1.0
+pendengki|1.0
+curiga|1.0
+mencurigai|1.0
+curiganya|1.0
+curigaan|1.0
+mencurigakan|1.0
+menyelubung|1.0
+nyinyir|1.0
+nyinyiran|1.0
+mengomentari|1.0
+mengomentarkan|1.0
+sindir|1.0
+sindiran|1.0
+menyindir|1.0
+menyindir-nyindirkan|1.0
+sindir|1.0
+ejek|1.0
+ejekan|1.0
+mengejer|1.0
+mengejan|1.0
+mengejek|1.0
+mengejekkan|1.0
+hinaan|1.0
+menghina|1.0
+meninakan|1.0
+menghinai|1.0
+hinai|1.0
+cacian|1.0
+mencaci|1.0
+mencacimaki|1.0
+cacimaki|1.0
+mengumpat|1.0
+umpatan|1.0
+mengumpatan|1.0
+melontarkan kata kasar|1.0
+kata kasar|1.0
+umpatan|1.0
+kutukan|1.0
+mengutuk|1.0
+memperkutuk|1.0
+memaki|1.0
+makian|1.0
+berbadal|1.0
+badal badil|1.0
+mengomeli|1.0
+omeli|1.0
+merengek|1.0
+rengekan|1.0
+merenggek|1.0
+merengek-rengek|1.0
+mengeluh|1.0
+keluhan|1.0
+mengkeluhkan|1.0
+mengeluhkan|1.0
+merasa kasihan|1.0
+kasihan|1.0
+menyayangkan|1.0
+sayangnya|1.0
+menyayangkan|1.0
+naas|1.0
+celaka|1.0
+naasnya|1.0
+celakanya|1.0
+sial|1.0
+sialnya|1.0
+malang|1.0
+malangnya|1.0
+ditimpa musibah|1.0
+musibah|1.0
+bencana|1.0
+bencana alam|1.0
+kecelakaan|1.0
+tragedi|1.0
+tragis|1.0
+duka|1.0
+dukacita|1.0
+duka cita|1.0
+dusducita|1.0
+cobaan|1.0
+ujian|1.0
+ujiannya|1.0
+cobanannya|1.0
+coban|1.0
+ujian|1.0
+berat|1.0
+berat sebelah|1.0
+memberatkan|1.0
+terlalu berat|1.0
+terlalu berat|1.0
+memberati|1.0
+membebani|1.0
+membebani|1.0
+bebanan|1.0
+beban|1.0
+beban hidup|1.0
+beban batin|1.0
+beban hati|1.0
+beban pikiran|1.0
+beban|1.0
+menekan|1.0
+tertekan|1.0
+oppression|1.0
+menekan|1.0
+menekankan|1.0
+tekanan|1.0
+tekanan psikologis|1.0
+stress|1.0
+stres|1.0
+stress level|1.0
+stres tingkat|1.0
+tertekan|1.0
+tertekanan|1.0
+tertekanan|1.0
+teremosional|1.0
+emosional|1.0
+berlinangan|1.0
+linangan|1.0
+menangis|1.0
+tangisan|1.0
+menangiskan|1.0
+meneteskan|1.0
+air mata|1.0
+air mata|1.0
+tetesan|1.0
+isakan|1.0
+isak|1.0
+berguncang|1.0
+guncang|1.0
+guncangan|1.0
+terguncang|1.0
+goncang|1.0
+goyang|1.0
+tersentak|1.0
+terkejut|1.0
+kaget|1.0
+kagetnya|1.0
+terkejutan|1.0
+kegetan|1.0
+kagetannya|1.0
+panik|1.0
+kepanikan|1.0
+panik|1.0
+paniknya|1.0
+terpanggilnya|1.0
+terpanggil|1.0
+terkejut|1.0
+menginjak|1.0
+diinjak|1.0
+injakan|1.0
+terinjak|1.0
+injak|1.0
+penginjak|1.0
+menderita|1.0
+derita|1.0
+penderitaan|1.0
+menderita|1.0
+menderitanya|1.0
+terkena penyakit|1.0
+penyakit|1.0
+sakit penyakit|1.0
+penyakitan|1.0
+berakhiran|1.0
+tidak|1.0
+bukan|1.0
+bukan|1.0
+jangan|1.0
+jangan|1.0
+jangankan|1.0
+jangan sampai|1.0
+hindari|1.0
+hindarkan|1.0
+hindaran|1.0
+menghindari|1.0
+menghindari|1.0
+mengehindari|1.0
+terhindar|1.0
+menjauhi|1.0
+menjauhin|1.0
+jauhi|1.0
+menjauhi|1.0
+menjauhkan|1.0
+jauh|1.0
+jauhnya|1.0
+jauhkan|1.0
+jauh jauhan|1.0
+menjaga jarak|1.0
+menjaga|1.0
+jaga|1.0
+terjaga|1.0
+jago|1.0
+penjaga|1.0
+penjaga|1.0
+penjagaan|1.0
+terjaga|1.0
+mengamankan|1.0
+amankan|1.0
+pengaman|1.0
+keamanan|1.0
+keamanannya|1.0
+aman|1.0
+aman sejahtera|1.0
+sejahtera|1.0
+kesejahteraan|1.0
+sejahterakan|1.0
+menyejahterakan|1.0
+sejahtera diri|1.0
+sejahteraindah|1.0
+cerah|1.0
+cerahnya|1.0
+cerahkan|1.0
+cerah cerah|1.0
+terang|1.0
+terangnya|1.0
+menerangkan|1.0
+terangkan|1.0
+cahaya|1.0
+cahayanya|1.0
+cahaya terang|1.0
+penerangan|1.0
+penerangi|1.0
+penerangi|1.0
+penerangnya|1.0
+menerangi|1.0
+gemerlap|1.0
+gemerlapnya|1.0
+berkilau|1.0
+kilau|1.0
+kilau kilau|1.0
+berkilauan|1.0
+berkilau|1.0
+kilauan|1.0
+terkilau|1.0
+bersinar|1.0
+sinaran|1.0
+menyinari|1.0
+menyinarkan|1.0
+sinar|1.0
+sinaran|1.0
+sinar terang|1.0
+penyinar|1.0
+penyinaran|1.0
+mencahayai|1.0
+pencahayaan|1.0
+cahayai|1.0
+cahayan|1.0
+cahaya cahaya|1.0
