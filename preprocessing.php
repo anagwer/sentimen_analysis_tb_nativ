@@ -137,12 +137,43 @@ function stemmingText($text) {
  * Helper untuk stemming sederhana
  */
 function simpleStemming($word) {
+    static $lexiconWords = null;
+    if ($lexiconWords === null) {
+        $lexiconWords = [];
+        $posFile = __DIR__ . '/assets/lexicon/positive.txt';
+        $negFile = __DIR__ . '/assets/lexicon/negative.txt';
+        
+        if (file_exists($posFile)) {
+            $lines = file($posFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            foreach ($lines as $line) {
+                $parts = explode('|', trim($line));
+                if (count($parts) >= 1) {
+                    $lexiconWords[strtolower(trim($parts[0]))] = true;
+                }
+            }
+        }
+        
+        if (file_exists($negFile)) {
+            $lines = file($negFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            foreach ($lines as $line) {
+                $parts = explode('|', trim($line));
+                if (count($parts) >= 1) {
+                    $lexiconWords[strtolower(trim($parts[0]))] = true;
+                }
+            }
+        }
+    }
+    
     $word = strtolower($word);
+    
+    // Jika kata asli sudah ada di lexicon, jangan di-stem
+    if (isset($lexiconWords[$word])) {
+        return $word;
+    }
     
     // Hapus suffix umum Bahasa Indonesia
     $patterns = [
         '/kan$/' => '',      // verb suffix
-        '/kan$/' => '',      // transitive marker
         '/an$/' => '',       // noun suffix
         '/i$/' => '',        // possessive suffix
         '/lah$/' => '',      // emphasis marker
@@ -153,16 +184,23 @@ function simpleStemming($word) {
     ];
     
     foreach ($patterns as $pattern => $replacement) {
-        $word = preg_replace($pattern, $replacement, $word, 1);
+        $newWord = preg_replace($pattern, $replacement, $word, 1);
+        if ($newWord !== $word) {
+            $word = $newWord;
+            // Jika setelah hapus suffix kata ada di lexicon, langsung kembalikan
+            if (isset($lexiconWords[$word])) {
+                return $word;
+            }
+        }
     }
     
-    // Hapus prefix umum Bahasa Indonesia
+    // Hapus prefix umum Bahasa Indonesia (menggunakan urutan terpanjang dahulu)
     $prefixes = [
+        'meng' => 'k',
+        'meny' => 's',
+        'mem' => 'p',
+        'men' => 't',
         'me' => '',
-        'mem' => '',
-        'men' => '',
-        'meng' => '',
-        'meny' => '',
         'di' => '',
         'ter' => '',
         'ke' => '',
@@ -171,9 +209,41 @@ function simpleStemming($word) {
         'be' => '',
     ];
     
+    $vowels = ['a', 'i', 'u', 'e', 'o'];
+    
     foreach ($prefixes as $prefix => $replacement) {
         if (strpos($word, $prefix) === 0 && strlen($word) > strlen($prefix) + 2) {
-            $word = substr($word, strlen($prefix));
+            $tempWord = substr($word, strlen($prefix));
+            
+            // Check if prefix is one of the me- variants that can merge with first letter
+            if (in_array($prefix, ['meng', 'meny', 'mem', 'men'])) {
+                $firstChar = substr($tempWord, 0, 1);
+                if (in_array($firstChar, $vowels)) {
+                    if ($prefix === 'meng') {
+                        $kWord = 'k' . $tempWord;
+                        if (isset($lexiconWords[$kWord])) {
+                            return $kWord;
+                        }
+                        if (isset($lexiconWords[$tempWord])) {
+                            return $tempWord;
+                        }
+                        $word = $tempWord;
+                    } else {
+                        $prepended = $replacement . $tempWord;
+                        if (isset($lexiconWords[$prepended])) {
+                            return $prepended;
+                        }
+                        $word = $prepended;
+                    }
+                    break;
+                }
+            }
+            
+            // Jika kata setelah hapus prefix ada di lexicon, gunakan itu
+            if (isset($lexiconWords[$tempWord])) {
+                return $tempWord;
+            }
+            $word = $tempWord;
             break;
         }
     }
