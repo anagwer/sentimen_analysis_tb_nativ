@@ -256,93 +256,167 @@ $topNegWordName = !empty($negWordCounts) ? array_key_first($negWordCounts) : '-'
                 </div>
             </div>
 
-            <!-- Main Word Cloud Card -->
-            <div class="row">
+            
+
+            <!-- Visualisasi Gambar Word Cloud (Hasil Python Notebook) -->
+            <div class="row mt-3">
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title mb-0">
-                                    <i class="bi bi-cloud-haze2 text-primary"></i> 
-                                    Awan Kata (Word Cloud) Dataset 
-                                    <span class="badge bg-primary ms-2"><?= count($wordCloudData); ?> Kata</span>
-                                </h5>
-                                <div>
-                                    <button class="btn btn-sm btn-outline-primary" onclick="toggleCloudView('echarts')">
-                                        <i class="bi bi-graph-up"></i> ECharts View
-                                    </button>
-                                    <button class="btn btn-sm btn-outline-secondary" onclick="toggleCloudView('pill')">
-                                        <i class="bi bi-grid"></i> Tag Cloud View
-                                    </button>
+                            <h5 class="card-title"><i class="bi bi-file-image text-primary"></i> Benchmark Visual Word Cloud (Hasil Eksperimen Python Notebook)</h5>
+                            <p class="text-muted small">Perbandingan visual gambar Word Cloud yang diproses melalui library Python <code>wordcloud</code> dan <code>matplotlib</code> dari notebook Google Colab.</p>
+
+                            <div class="row g-4 mt-1">
+                                <div class="col-md-4">
+                                    <div class="card h-100 border text-center shadow-sm">
+                                        <div class="card-header bg-success text-white py-2 font-weight-bold">
+                                            Word Cloud Positif
+                                        </div>
+                                        <div class="card-body p-2">
+                                            <img src="assets/img/wordcloud untuk sentimen positif.png" class="img-fluid rounded" alt="Wordcloud Positif Python" style="max-height: 220px; object-fit: contain;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card h-100 border text-center shadow-sm">
+                                        <div class="card-header bg-danger text-white py-2 font-weight-bold">
+                                            Word Cloud Negatif
+                                        </div>
+                                        <div class="card-body p-2">
+                                            <img src="assets/img/wordcloud untuk sentimen negatif.png" class="img-fluid rounded" alt="Wordcloud Negatif Python" style="max-height: 220px; object-fit: contain;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card h-100 border text-center shadow-sm">
+                                        <div class="card-header bg-secondary text-white py-2 font-weight-bold">
+                                            Word Cloud Netral
+                                        </div>
+                                        <div class="card-body p-2">
+                                            <img src="assets/img/wordcloud untuk sentimen netral.png" class="img-fluid rounded" alt="Wordcloud Netral Python" style="max-height: 220px; object-fit: contain;">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                            <!-- Container for ECharts WordCloud -->
-                            <div id="wordCloudChart" style="min-height: 480px; width: 100%;"></div>
+            <!-- Evaluasi Model & Confusion Matrix (Naive Bayes + SMOTE) -->
+            <div class="row mt-4 mb-4">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="card-title mb-0"><i class="bi bi-cpu-fill text-primary"></i> Perbandingan & Evaluasi Model (Naive Bayes + SMOTE)</h5>
+                                <span class="badge bg-success fs-6"><i class="bi bi-check-circle-fill"></i> Akurasi Model: 77.25%</span>
+                            </div>
+                            <p class="text-muted">
+                                Evaluasi performa pengujian data menggunakan algoritma <strong>Multinomial Naive Bayes</strong> yang dikombinasikan dengan teknik pembobotan <strong>TF-IDF</strong> dan penyeimbangan kelas <strong>SMOTE (Synthetic Minority Over-sampling Technique)</strong> pada perbandingan data latih (80%) dan data uji (20%).
+                            </p>
 
-                            <!-- Fallback/Alternative Tag Cloud View -->
-                            <div id="tagCloudView" style="display: none; min-height: 400px; padding: 20px;" class="border rounded bg-light text-center">
-                                <?php
-                                if (!empty($wordCloudData)) {
-                                    $maxVal = reset($allWordCounts);
-                                    $minVal = end($allWordCounts);
-                                    if ($maxVal == $minVal) $maxVal = $minVal + 1;
+                            <div class="row g-4 mt-1">
+                                <!-- Confusion Matrix Image Card -->
+                                <div class="col-lg-5">
+                                    <div class="card border h-100">
+                                        <div class="card-header bg-light font-weight-bold">
+                                            <i class="bi bi-grid-3x3-gap-fill text-info"></i> Confusion Matrix Heatmap
+                                        </div>
+                                        <div class="card-body text-center p-3">
+                                            <img src="assets/img/confussion-matrix.png" class="img-fluid rounded border shadow-sm mb-2" alt="Confusion Matrix Naive Bayes SMOTE" style="max-height: 320px; cursor: pointer;" onclick="openImageModal(this.src, 'Confusion Matrix - Naive Bayes (SMOTE)')">
+                                            <div class="alert alert-info py-2 px-3 mt-2 text-start small mb-0">
+                                                <strong>Catatan Matrix:</strong><br>
+                                                - Prediksi Negatif (0): 384 Aktual Negatif tepat terprediksi.<br>
+                                                - Prediksi Positif (2): 153 Aktual Positif tepat terprediksi.<br>
+                                                - Total Data Testing: 699 Dokumen Review.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                    foreach ($wordCloudData as $item) {
-                                        $word = htmlspecialchars($item['name']);
-                                        $cnt = $item['value'];
-                                        // Font scale between 14px and 42px
-                                        $size = 14 + (($cnt - $minVal) / ($maxVal - $minVal)) * 28;
-                                        
-                                        // Color logic
-                                        $posC = $item['pos_count'];
-                                        $negC = $item['neg_count'];
-                                        $badgeClass = 'bg-secondary';
-                                        if ($posC > $negC) {
-                                            $badgeClass = 'bg-success';
-                                        } elseif ($negC > $posC) {
-                                            $badgeClass = 'bg-danger';
-                                        }
+                                <!-- Evaluation Metrics & Table -->
+                                <div class="col-lg-7">
+                                    <div class="card border h-100">
+                                        <div class="card-header bg-light font-weight-bold">
+                                            <i class="bi bi-journal-check text-primary"></i> Classification Report (Laporan Evaluasi Performa)
+                                        </div>
+                                        <div class="card-body p-3">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-hover align-middle text-center mb-3">
+                                                    <thead class="table-dark">
+                                                        <tr>
+                                                            <th>Kelas Sentimen</th>
+                                                            <th>Precision</th>
+                                                            <th>Recall</th>
+                                                            <th>F1-Score</th>
+                                                            <th>Support</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="text-start"><strong>0 (Negatif)</strong></td>
+                                                            <td><span class="badge bg-success">88.5%</span></td>
+                                                            <td><span class="badge bg-success">84.6%</span></td>
+                                                            <td><strong class="text-success">86.5%</strong></td>
+                                                            <td>454</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-start"><strong>1 (Netral)</strong></td>
+                                                            <td><span class="badge bg-warning text-dark">10.0%</span></td>
+                                                            <td><span class="badge bg-warning text-dark">6.1%</span></td>
+                                                            <td><strong class="text-warning text-dark">7.6%</strong></td>
+                                                            <td>49</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-start"><strong>2 (Positif)</strong></td>
+                                                            <td><span class="badge bg-info text-dark">65.1%</span></td>
+                                                            <td><span class="badge bg-info text-dark">78.1%</span></td>
+                                                            <td><strong class="text-info text-dark">71.0%</strong></td>
+                                                            <td>196</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot class="table-light">
+                                                        <tr>
+                                                            <th class="text-start">Akurasi Keseluruhan</th>
+                                                            <th colspan="3"><span class="badge bg-primary fs-6">77.25% (0.773)</span></th>
+                                                            <th>699</th>
+                                                        </tr>
+                                                        <tr>
+                                                            <th class="text-start">Macro Average</th>
+                                                            <td>54.5%</td>
+                                                            <td>56.3%</td>
+                                                            <td>55.0%</td>
+                                                            <td>699</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th class="text-start">Weighted Average</th>
+                                                            <td>76.4%</td>
+                                                            <td>77.3%</td>
+                                                            <td>76.6%</td>
+                                                            <td>699</td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
 
-                                        echo "<span class='badge $badgeClass m-1 p-2 shadow-sm' style='font-size: {$size}px; display: inline-block;' title='{$word}: {$cnt}x muncul'>
-                                                {$word} <span class='badge bg-light text-dark rounded-pill ms-1' style='font-size:11px;'>{$cnt}</span>
-                                              </span> ";
-                                    }
-                                } else {
-                                    echo "<p class='text-muted'>Tidak ada data kata untuk ditampilkan.</p>";
-                                }
-                                ?>
+                                            <div class="bg-light p-3 rounded border">
+                                                <h6 class="font-weight-bold text-dark mb-2"><i class="bi bi-chat-left-text-fill text-primary me-1"></i> Rangkuman Hasil Evaluasi Python:</h6>
+                                                <ul class="small mb-0 ps-3">
+                                                    <li><strong>Dominasi Sentimen Negatif:</strong> Dari total 3.492 ulasan, sentimen negatif mendominasi (65% / 2.268 ulasan), disusul positif (28% / 980 ulasan) dan netral (7% / 244 ulasan).</li>
+                                                    <li><strong>Keunggulan Naive Bayes + SMOTE:</strong> Model berkinerja sangat tinggi dalam mengidentifikasi ulasan <em>Negatif</em> (F1-Score 86.5%) dan ulasan <em>Positif</em> (F1-Score 71.0%).</li>
+                                                    <li><strong>Catatan Kelas Netral:</strong> Jumlah sampel netral yang relatif kecil membuat F1-Score kelas netral rendah, namun SMOTE berhasil mencegah bias ekstrem terhadap kelas mayoritas.</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Side-by-side Comparative Word Clouds (Positif vs Negatif) -->
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="card border-top border-success border-4">
-                        <div class="card-body">
-                            <h5 class="card-title text-success">
-                                <i class="bi bi-hand-thumbs-up"></i> Word Cloud Sentimen Positif
-                            </h5>
-                            <div id="posWordCloudChart" style="min-height: 380px; width: 100%;"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="card border-top border-danger border-4">
-                        <div class="card-body">
-                            <h5 class="card-title text-danger">
-                                <i class="bi bi-hand-thumbs-down"></i> Word Cloud Sentimen Negatif
-                            </h5>
-                            <div id="negWordCloudChart" style="min-height: 380px; width: 100%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!-- Charts: Top 20 Words & Top Bigrams -->
             <div class="row">

@@ -2,6 +2,16 @@
 <?php include('head.php'); ?>
 <?php require_once 'sentiment_classifier.php'; ?>
 
+<style>
+.img-hover-zoom {
+    transition: transform .3s ease, filter .3s ease;
+}
+.img-hover-zoom:hover {
+    transform: scale(1.05);
+    filter: brightness(0.9);
+}
+</style>
+
 <body>
     <!-- Sidebar -->
     <?php include('side_bar.php'); ?>
@@ -172,6 +182,30 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Modal Preview Gambar -->
+            <div class="modal fade" id="imagePreviewModal" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="imageModalTitle">Preview Visualisasi</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center p-3 bg-dark">
+                            <img src="" id="modalImagePreview" class="img-fluid rounded" style="max-height: 75vh;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                function openImageModal(src, title) {
+                    document.getElementById('modalImagePreview').src = src;
+                    document.getElementById('imageModalTitle').innerText = title;
+                    var myModal = new bootstrap.Modal(document.getElementById('imagePreviewModal'));
+                    myModal.show();
+                }
+            </script>
 
         </section>
     </main><!-- End #main -->
