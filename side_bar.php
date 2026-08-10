@@ -71,6 +71,13 @@
         </li>
         
         <li class="nav-item">
+            <a class="nav-link <?php echo $current_page == 'wordcloud.php' ? '' : 'collapsed'; ?>" href="wordcloud.php">
+                <i class="bi bi-cloud-haze2"></i>
+                <span>Word Cloud & Text</span>
+            </a>
+        </li>
+        
+        <li class="nav-item">
             <a class="nav-link <?php echo $current_page == 'prediksi.php' ? '' : 'collapsed'; ?>" href="prediksi.php">
                 <i class="bi bi-search"></i>
                 <span>Prediksi Sentimen</span>

@@ -1,33 +1,38 @@
 # Website Analisis Sentimen
 
-Website analisis sentimen yang dibangun dengan mengubah template SPK WASPAS menjadi aplikasi sentiment analysis menggunakan metode Lexicon-Based dengan PHP.
+Website analisis sentimen yang dibangun dengan mengubah template SPK WASPAS menjadi aplikasi sentiment analysis menggunakan metode Lexicon-Based dengan PHP dan MySQL.
 
 ## 🎯 Fitur Utama
 
-- **Dashboard**: Menampilkan statistik dataset dan prediksi sentimen
-- **Dataset Management**: Upload dan analisis dataset CSV dengan format terstruktur
-- **Visualisasi**: Chart distribusi sentimen (pie, bar, doughnut chart)
-- **Prediksi Real-time**: Analisis sentimen untuk teks baru secara langsung
-- **Riwayat**: Tracking lengkap semua prediksi yang telah dilakukan
+- **Dashboard**: Menampilkan statistik dataset, total prediksi sentimen, dan statistik lexicon.
+- **Dataset Management**: Upload dan analisis dataset CSV dengan format terstruktur serta otomatisasi klasifikasi sentimen.
+- **Visualisasi Sentimen**: Chart distribusi sentimen (Pie Chart, Bar Chart, Doughnut Chart) dan ringkasan persentase.
+- **Word Cloud & Text Analytics**: Visualisasi Awan Kata (*Word Cloud*) interaktif, komparasi kata sentimen positif vs negatif, grafik 20 kata terbanyak, analisis frasa 2 kata (*Bigram*), dan tabel frekuensi kata.
+- **Prediksi Real-time**: Analisis sentimen untuk teks baru secara langsung dengan skor detail dan tingkat keyakinan (*confidence*).
+- **Riwayat Prediksi**: Tracking lengkap semua prediksi yang telah dilakukan beserta ekspor dan statistik.
+- **Keamanan & Autentikasi Login**: Dilengkapi fitur **Simbol Mata (Show/Hide Password)** dan modal **Lupa Password** untuk menyetel ulang password akun secara mandiri.
 
 ## 📋 Struktur File
 
 ```
-sentimen/
+sentimen_analysis_tb_nativ/
 ├── index.php                    # Dashboard utama
 ├── dataset.php                  # Halaman manage dataset
-├── visualisasi.php             # Halaman visualisasi chart
-├── prediksi.php                # Halaman prediksi sentimen
+├── visualisasi.php             # Halaman visualisasi chart distribusi sentimen
+├── wordcloud.php               # Halaman visualisasi Word Cloud & Text Analytics
+├── prediksi.php                # Halaman prediksi sentimen real-time
 ├── riwayat.php                 # Halaman riwayat prediksi
+├── login.php                   # Halaman login dengan fitur toggle eye & lupa password
 ├── setup.php                   # Setup database (jalankan sekali)
 ├── dbcon.php                   # Database connection
-├── session.php                 # Session management
-├── head.php                    # Header/meta tags
+├── session.php                 # Session management & user validation
+├── head.php                    # Header/meta tags & CSS vendors
 ├── footer.php                  # Footer template
 ├── side_bar.php                # Sidebar navigation
 ├── script.php                  # Scripts template
-├── preprocessing.php           # Text preprocessing library
-├── sentiment_classifier.php    # Sentiment classification logic
+├── preprocessing.php           # Text preprocessing library (cleaning, filtering, stemming)
+├── sentiment_classifier.php    # Sentiment classification logic & lexicon loader
+├── sample_data.csv             # Contoh data sampel CSV
 ├── assets/
 │   ├── css/
 │   │   └── style.css
@@ -36,7 +41,7 @@ sentimen/
 │   ├── lexicon/
 │   │   ├── positive.txt       # Kamus kata positif
 │   │   └── negative.txt       # Kamus kata negatif
-│   ├── vendor/                # Library eksternal
+│   ├── vendor/                # Library eksternal (Bootstrap, ECharts, ApexCharts, dll)
 │   └── img/
 └── database/
     ├── db_spk_waspas.sql      # Database original
@@ -46,36 +51,38 @@ sentimen/
 ## 🚀 Instalasi & Setup
 
 ### 1. Copy Files
-Semua file sudah tersedia di direktori `/Applications/XAMPP/xamppfiles/htdocs/project/sentimen/`
+Salin folder proyek ke direktori web server XAMPP: `c:\xampp\htdocs\project\sentimen_analysis_tb_nativ\`
 
 ### 2. Setup Database
 Buka browser dan akses:
 ```
-http://localhost/project/sentimen/setup.php
+http://localhost/project/sentimen_analysis_tb_nativ/setup.php
 ```
 
 File ini akan otomatis membuat:
 - Tabel `datasets` - menyimpan data review
 - Tabel `sentiment_predictions` - menyimpan hasil prediksi user
-- Tabel `lexicon_words` - menyimpan kamus sentimen (optional)
+- Tabel `lexicon_words` - menyimpan kamus sentimen
 
-### 3. Login
-Gunakan akun yang sudah ada di database `db_spk_waspas`:
-- Username: (sesuai data user di database)
-- Password: (sesuai password di database)
+### 3. Login Sistem
+Buka halaman login: `http://localhost/project/sentimen_analysis_tb_nativ/login.php`
+- Gunakan ikon **Simbol Mata** untuk melihat password yang diketik.
+- Gunakan tombol **Lupa Password?** jika lupa password akun terdaftar untuk menyetel ulang password secara langsung.
+
+---
 
 ## 📊 Cara Menggunakan
 
-### Dashboard (index.php)
+### Dashboard (`index.php`)
 Menampilkan:
 - Total dataset yang sudah dianalisis
 - Jumlah sentimen positif, negatif, dan netral
-- Total prediksi yang telah dilakukan
+- Total prediksi yang telah dilakukan oleh pengguna
 - Statistik lexicon (jumlah kata positif/negatif)
 
-### Dataset (dataset.php)
+### Dataset (`dataset.php`)
 1. Upload file CSV dengan format:
-   ```
+   ```csv
    title, url, stars, name, reviewUrl, text
    Taman Kyai Langgeng, https://..., 5, John Doe, https://..., "Review text here"
    ```
@@ -84,146 +91,86 @@ Menampilkan:
    - Melakukan preprocessing pada setiap review
    - Mengklasifikasi sentimen (positif/negatif/netral)
    - Menyimpan ke database
+3. Menampilkan tabel dataset dengan hasil sentiment analysis.
 
-3. Menampilkan tabel dataset dengan sentiment analysis hasil
-
-### Visualisasi (visualisasi.php)
+### Visualisasi (`visualisasi.php`)
 Menampilkan:
-- Pie Chart - distribusi sentimen dalam persen
-- Bar Chart - jumlah review per sentimen
-- Doughnut Chart - detail sentimen dengan visualisasi ring
-- Tabel summary statistik
+- **Pie Chart**: Distribusi sentimen dalam persen
+- **Bar Chart**: Jumlah review per sentimen
+- **Doughnut Chart**: Detail sentimen dengan visualisasi ring
+- **Tabel Ringkasan**: Rekapitulasi jumlah dan persentase sentimen
 
-### Prediksi Sentimen (prediksi.php)
+### Word Cloud & Text Analytics (`wordcloud.php`)
+Menampilkan:
+- **Kartu Ringkasan Kata**: Total token kata terproses, jumlah kosa kata unik, kata positif utama, dan kata negatif utama.
+- **Filter Sentimen & Batas Kata**: Pilihan filter berdasarkan kategori sentimen (*Positif, Negatif, Netral*) dan batas kata (*50 - 200 kata*).
+- **Word Cloud Interaktif**: Visualisasi awan kata berbasis ECharts dan Tag Cloud View.
+- **Side-by-Side Word Cloud**: Perbandingan kata-kata sentimen positif vs kata-kata sentimen negatif secara visual.
+- **Top 20 Kata & Top 10 Bigram**: Grafik batang horizontal kata terbanyak dan frasa 2 kata (*Bigram*) yang paling sering muncul.
+- **Tabel Detail Frekuensi Kata**: Daftar kata terproses lengkap dengan status kemunculan per sentimen dan tag dominasi.
+
+### Prediksi Sentimen (`prediksi.php`)
 1. Masukkan teks/review yang ingin dianalisis
 2. Klik "Analisis Sentimen"
 3. Sistem menampilkan:
    - Hasil sentimen (Positif/Negatif/Netral)
    - Skor sentimen
-   - Confidence level
+   - Confidence level (%)
    - Detail kata positif dan negatif yang ditemukan
 
-### Riwayat (riwayat.php)
+### Riwayat (`riwayat.php`)
 Menampilkan:
 - Daftar lengkap semua prediksi yang telah dilakukan
 - Waktu, teks input, hasil, dan confidence
 - Statistik (total prediksi, rata-rata confidence, sentimen terbanyak)
 - Chart distribusi sentimen dari user predictions
 
+---
+
 ## 🔧 Teknologi & Library
 
 ### Backend
-- **PHP 7.4+** - Server-side scripting
+- **PHP 7.4+ / PHP 8.x** - Server-side scripting
 - **MySQL/MariaDB** - Database
-- **Sentiment Classifier** - Custom class untuk classification
+- **Sentiment Classifier** - Custom class untuk classification berbasis Lexicon
 
 ### Frontend
 - **Bootstrap 5** - CSS Framework
-- **ECharts 5** - Data visualization
-- **ApexCharts** - Alternative charting
-- **DataTables** - Table management
-- **Quill Editor** - Text editor (optional)
+- **Bootstrap Icons** - Icon library
+- **ECharts 5 & ECharts WordCloud** - Data & text visualization
+- **DataTables** - Table management & interactive pagination
+
+---
 
 ## 📝 Proses Analisis Sentimen
 
 ### 1. Text Preprocessing
 Dilakukan di `preprocessing.php`:
-- **Cleaning**: Hapus @mention, #hashtag, URL, angka, tanda baca
-- **Case Folding**: Konversi ke huruf kecil
-- **Tokenizing**: Pisahkan teks menjadi kata-kata
-- **Stop Words Removal**: Hapus kata-kata umum (a, the, dan, di, dll)
-- **Slang Words Normalization**: Ganti kata tidak baku (ga→tidak, suka→suka, dll)
-- **Stemming**: Ubah kata ke bentuk dasar
+- **Cleaning**: Hapus @mention, #hashtag, URL, angka, dan tanda baca.
+- **Case Folding**: Konversi teks ke huruf kecil.
+- **Tokenizing**: Pisahkan teks menjadi kata-kata individual.
+- **Filtering / Stop Words Removal**: Hapus kata-kata umum yang tidak berpengaruh (dan, di, ke, yang, dll).
+- **Stemming**: Ubah kata ke bentuk dasar menggunakan aturan stemming Bahasa Indonesia.
 
 ### 2. Sentiment Classification
 Dilakukan di `sentiment_classifier.php`:
-- Bandingkan kata hasil preprocessing dengan lexicon
-- Hitung skor: +1 untuk kata positif, -1 untuk kata negatif
+- Bandingkan kata hasil preprocessing dengan lexicon.
+- Hitung skor: Tambah bobot untuk kata positif, kurangi bobot untuk kata negatif.
 - Klasifikasi:
   - **Positif** jika skor > 0
   - **Negatif** jika skor < 0
   - **Netral** jika skor = 0
 
-### 3. Confidence Calculation
-- Confidence = (|skor| × 10) capped di 100%
-- Semakin tinggi skor, semakin tinggi confidence
+---
 
-## 📚 Format Data
+## 🔐 Keamanan & Login
 
-### CSV Input Format
-```csv
-title,url,stars,name,reviewUrl,text
-"Taman Kyai Langgeng - Tempat Wisata Magelang","https://www.google.com/maps/search/?api=1&query=Taman+Kyai+Langgeng",5,"Yusuf Noufal Rahman","https://www.google.com/maps/reviews/data=!4m8!...","Sudah tiga kali ke tempat ini dengan rentang waktu..."
-```
+1. **Password Toggle (Simbol Mata)**:
+   - Tombol toggle mata interaktif pada input password di halaman login dan modal reset.
+2. **Lupa Password**:
+   - Pengguna dapat menyetel ulang password secara mandiri melalui modal dengan memasukkan Username atau Email terdaftar.
 
-### Database Schema
-
-**datasets table:**
-- id_dataset (INT, Primary Key)
-- title (VARCHAR 255)
-- url (LONGTEXT)
-- stars (INT)
-- name (VARCHAR 100)
-- reviewUrl (LONGTEXT)
-- text (LONGTEXT)
-- sentiment (ENUM: positif, negatif, netral)
-- score (DECIMAL)
-- created_at (TIMESTAMP)
-
-**sentiment_predictions table:**
-- id_prediction (INT, Primary Key)
-- user_input (LONGTEXT)
-- sentiment_result (ENUM: positif, negatif, netral)
-- score (DECIMAL)
-- confidence (DECIMAL)
-- created_at (TIMESTAMP)
-
-## 🎨 Customization
-
-### Menambah Kata ke Lexicon
-Edit file `assets/lexicon/positive.txt` atau `assets/lexicon/negative.txt`:
-```
-kata|bobot
-bagus|1.0
-sangat bagus|2.0
-```
-
-Format: `kata|bobot` (separated by pipe)
-
-### Mengubah Threshold Sentimen
-Ubah di `sentiment_classifier.php` di method `classifySentiment()`:
-```php
-if ($score > 0.5) {
-    return 'positif';
-} elseif ($score < -0.5) {
-    return 'negatif';
-}
-```
-
-### Menambah Stopwords
-Edit di `preprocessing.php` di function `filteringText()`:
-```php
-$stopwords = [
-    // ... existing stopwords ...
-    'kata_baru', 'stopword_baru'
-];
-```
-
-## ⚠️ Important Notes
-
-1. **Database Charset**: Pastikan menggunakan UTF-8 untuk support bahasa Indonesia
-2. **File Permissions**: Lexicon files harus readable
-3. **CSV Encoding**: Gunakan UTF-8 when saving CSV files
-4. **Session**: Login diperlukan untuk mengakses aplikasi
-5. **File Upload**: Max file size bisa disesuaikan di `php.ini`
-
-## 🔐 Security Recommendations
-
-1. Jangan expose `setup.php` di production - rename atau delete setelah setup
-2. Gunakan prepared statements untuk database queries
-3. Validate & sanitize semua user inputs
-4. Implementasi rate limiting untuk prediksi
-5. Add CSRF protection pada form submissions
+---
 
 ## 📞 Support
 
@@ -231,6 +178,6 @@ Untuk pertanyaan atau bug reports, silakan hubungi developer.
 
 ---
 
-**Versi**: 1.0  
-**Last Updated**: Juni 2026  
+**Versi**: 1.1  
+**Last Updated**: Agustus 2026  
 **Database**: MySQL 5.7+ / MariaDB 10.4+
